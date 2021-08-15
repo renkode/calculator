@@ -121,6 +121,7 @@ h1 {
                          "a a a a"
                          "a a b b";
     justify-content: center;
+    align-items: center;
     column-gap: 8px;
 }
 
