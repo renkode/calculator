@@ -218,7 +218,7 @@ h1 {
         min-height: 20%;
         font-size: 90%;
         text-align: right;
-        line-height: 90%;
+        line-height: 80%;
     }
     
     .input {
@@ -227,7 +227,7 @@ h1 {
         font-size: 190%;
         text-align: right;
         overflow-wrap: break-word;
-        line-height: 90%;
+        line-height: 80%;
     }
     
 }
