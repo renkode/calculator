@@ -15,8 +15,14 @@ let result = null;
 numberBtns.forEach(btn => {
     btn.addEventListener("click", function(e){
         let num = e.target.textContent;
+        if (isNaN(result)) clear();
         if (operator === "") { 
-            firstOperand.push(num);
+            if (num === "0" && firstOperand[0] === "0" && !firstOperand.includes(".")) return;
+            if (firstOperand[0] === "0" && firstOperand.length === 1) {
+                firstOperand[0] = num 
+            } else { 
+                firstOperand.push(num)
+            };
             updateInputText(firstOperand)
         } else {
             secondOperand.push(num);
@@ -26,6 +32,7 @@ numberBtns.forEach(btn => {
 });
 
 dotBtn.addEventListener("click", function(e){
+    if (isNaN(result)) clear();
     if (operator === "") {
         if (!firstOperand.includes(".")) {
             if (firstOperand.length === 0) firstOperand.push("0");
@@ -44,11 +51,12 @@ dotBtn.addEventListener("click", function(e){
 operationBtns.forEach(btn => {
     btn.addEventListener("click", function(e){
         let symbol = e.target.textContent;
+        if (isNaN(result)) clear();
+        if (firstOperand.length === 0) return;
         if (symbol === "=" && secondOperand.length === 0) return;
         if (result) { // set result as operand
             evalArr = [];
             operator = symbol;
-            firstOperand.push(result);
             updateStoredText();
             storeInput();
             result = null;
@@ -59,8 +67,8 @@ operationBtns.forEach(btn => {
             updateStoredText();
             storeInput();
         } else { // evaluate
-            evalArr.push(secondOperand);
-            operate(parseFloat(firstOperand), parseFloat(secondOperand));
+            evalArr.push(secondOperand.join(''));
+            operate(parseFloat(firstOperand.join('')), parseFloat(secondOperand.join('')));
         }
     })
 });
@@ -82,6 +90,7 @@ function showResult () {
     firstOperand = [];
     secondOperand = [];
     operator = '';
+    firstOperand.push(...result.split(''));
 }
 
 function storeInput() {
@@ -104,6 +113,7 @@ const multiply = function(num1, num2) {
 };
 
 const divide = function(num1, num2) {
+    if (num2 === 0 ) return "Don't do that!"
     return num1 / num2;
 };
 
@@ -122,8 +132,9 @@ function operate(num1, num2) {
             result = add(num1,num2);
             break;
     }
-    result = toFixedIfNecessary(result, 7).toString();
+    if (!isNaN(result)) result = toFixedIfNecessary(result, 7).toString();
     showResult();
+    console.log(evalArr);
 }
 
 function del() {
@@ -134,6 +145,7 @@ function del() {
         secondOperand.pop();
         updateInputText(secondOperand)
     }
+    //result = null;
 }
 
 function clear() {
