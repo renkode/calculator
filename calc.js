@@ -3,15 +3,16 @@ const dotBtn = document.querySelector(".dotBtn");
 const operationBtns = Array.from(document.querySelectorAll(".opBtn"));
 const delBtn = document.querySelector("#delete");
 const clrBtn = document.querySelector("#clear");
+const extraBtn = document.querySelector("#click-me");
 const storedStr = document.querySelector(".stored");
 const inputStr = document.querySelector(".input");
 const maxDigits = 16;
-let historyArr = [];
 let evalArr = [];
 let firstOperand = [];
 let secondOperand = [];
 let operator = null;
 let result = null;
+let sound = new Audio("https://cdn.discordapp.com/attachments/577559988554301451/876392235099365386/yatta.mp3");
 
 let setNumbers = function(e) {
     let num = e.target.textContent;
@@ -27,6 +28,7 @@ let setNumbers = function(e) {
         updateInputText(firstOperand)
     } else {
         if (secondOperand.length >= maxDigits) return;
+        if (num === "0" && secondOperand[0] === "0" && !secondOperand.includes(".")) return;
         secondOperand.push(num);
         updateInputText(secondOperand)
     }
@@ -54,16 +56,22 @@ let setDecimal = function(e) {
 let setOperator = function(e) {
     let symbol = e.target.textContent;
     if (isNaN(result)) clear();
-    if (!parseInt(firstOperand[firstOperand.length-1]) || !parseInt(secondOperand[secondOperand.length-1])) return;
+    if (firstOperand.length > 0 && !Number.isInteger(parseInt(firstOperand[firstOperand.length-1]))) return;
+    if (secondOperand.length > 0 && !Number.isInteger(parseInt(secondOperand[secondOperand.length-1]))) return;
     if (firstOperand.length === 0) { // allow negative firstOperand
-        if (symbol === "-") firstOperand.push(symbol);
-        updateInputText(firstOperand);
-        return;
+        if (symbol === "-") {
+            firstOperand.push(symbol);
+            updateInputText(firstOperand);
+            return;
+        } else { return; }
     }
     if (operator && secondOperand.length === 0) {
-        if (symbol !== "=" && operator !== symbol) { // change operator
+        if (symbol !== "=") { // change operator
             operator = symbol;
             evalArr[1] = symbol;
+            updateStoredText();
+        } else {
+            return;
         }
         if (operator === "-" && symbol === operator) { // allow negative secondOperand
             secondOperand.push(symbol);
@@ -72,6 +80,7 @@ let setOperator = function(e) {
         }
     }
     if (result) { // set result as operand
+        if (symbol === "=") return;
         evalArr = [];
         operator = symbol;
         updateStoredText();
@@ -80,6 +89,7 @@ let setOperator = function(e) {
         return;
     }
     if (!operator) { // store firstOperand and operator
+        if (symbol === "=") return;
         operator = symbol;
         updateStoredText();
         storeInput();
@@ -89,19 +99,34 @@ let setOperator = function(e) {
     }
 }
 
-numberBtns.forEach(btn => {btn.addEventListener("click", setNumbers)});
-dotBtn.addEventListener("click", setDecimal);
-operationBtns.forEach(btn => {btn.addEventListener("click", setOperator)});
+function del() {
+    if (!operator) { 
+        firstOperand.pop();
+        updateInputText(firstOperand)
+    } else {
+        secondOperand.pop();
+        updateInputText(secondOperand)
+    }
+    //result = null;
+}
 
-delBtn.addEventListener("click", del);
-clrBtn.addEventListener("click", clear);
+function clear() {
+    historyArr = [];
+    evalArr = [];
+    firstOperand = [];
+    secondOperand = [];
+    operator = null;
+    inputStr.textContent = "";
+    storedStr.textContent = ""
+    result = null;
+}
 
 function updateInputText (arr) {
     inputStr.textContent = arr.join('');
 }
 
 function updateStoredText () {
-    storedStr.textContent = evalArr.join('');
+    storedStr.textContent = evalArr.join(" ");
 }
 
 function showResult () {
@@ -157,29 +182,14 @@ function operate(num1, num2) {
     console.log(evalArr);
 }
 
-function del() {
-    if (!operator) { 
-        firstOperand.pop();
-        updateInputText(firstOperand)
-    } else {
-        secondOperand.pop();
-        updateInputText(secondOperand)
-    }
-    //result = null;
-}
-
-function clear() {
-    historyArr = [];
-    evalArr = [];
-    firstOperand = [];
-    secondOperand = [];
-    operator = null;
-    inputStr.textContent = "";
-    storedStr.textContent = ""
-    result = null;
-}
-
 function toFixedIfNecessary( value, dp ){
     return +parseFloat(value).toFixed( dp );
 }
+
+numberBtns.forEach(btn => {btn.addEventListener("click", setNumbers)});
+dotBtn.addEventListener("click", setDecimal);
+operationBtns.forEach(btn => {btn.addEventListener("click", setOperator)});
+delBtn.addEventListener("click", del);
+clrBtn.addEventListener("click", clear);
+extraBtn.addEventListener("click", event => sound.play());
   

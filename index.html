@@ -2,36 +2,42 @@
 <html>
     <head>
         <link rel="stylesheet" href="ui.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet"> 
     </head>
     <body>
-        <div class="output">
-            <div class="stored"></div>
-            <div class="input"></div>
-        </div>
-        <div class=numbers>
-            <button id="one" class="numBtn">1</button>
-            <button id="two" class="numBtn">2</button>
-            <button id="three" class="numBtn">3</button>
-            <button id="four" class="numBtn">4</button>
-            <button id="five" class="numBtn">5</button>
-            <button id="six" class="numBtn">6</button>
-            <button id="seven" class="numBtn">7</button>
-            <button id="eight" class="numBtn">8</button>
-            <button id="nine" class="numBtn">9</button>
-            <button id="zero" class="numBtn">0</button>
-            <button id="dot" class="dotBtn">.</button>
-        </div>
-        <div class=operations>
-            <button id="divide" class="opBtn">÷</button>
-            <button id="multiply" class="opBtn">×</button>
-            <button id="minus" class="opBtn">-</button>
-            <button id="plus" class="opBtn">+</button>
-            <button id="equals" class="opBtn">=</button>
-        </div>
-        <div class=misc>
-            <button id="delete" class="miscBtn">delete</button>
-            <button id="clear" class="miscBtn">clear</button>
-        </div>
+        <div class="calculator">
+            <div class="display-bg">
+                <h1>CASIO</h1>
+                <div class="display">
+                    <div class="stored"></div>
+                    <div class="input"></div>
+                </div>
+            </div>
+            <div class ="buttons">
+                <button id="delete" class="miscBtn">C</button>
+                <button id="clear" class="miscBtn">AC</button>
+                <button id="click-me" class="miscBtn">🤡</button>
+                <button id="divide" class="opBtn">÷</button>
+                <button id="seven" class="numBtn">7</button>
+                <button id="eight" class="numBtn">8</button>
+                <button id="nine" class="numBtn">9</button>
+                <button id="multiply" class="opBtn">×</button>
+                <button id="four" class="numBtn">4</button>
+                <button id="five" class="numBtn">5</button>
+                <button id="six" class="numBtn">6</button>
+                <button id="minus" class="opBtn">-</button>
+                <button id="one" class="numBtn">1</button>
+                <button id="two" class="numBtn">2</button>
+                <button id="three" class="numBtn">3</button>
+                <button id="plus" class="opBtn">+</button>
+                <button id="dot" class="dotBtn">.</button>
+                <button id="zero" class="numBtn">0</button>
+                <button id="equals" class="opBtn">=</button>
+                
+            </div>
+         </div>
         <script src="calc.js"></script>
     </body>
 </html>
