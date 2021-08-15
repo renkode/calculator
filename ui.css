@@ -136,7 +136,7 @@ h1 {
 }
 
 #equals {
-    width: calc((var(--size) * 2) + 6px);
+    width: calc((var(--size) * 2) + 8px);
 }
 
 #delete, #clear {
@@ -188,5 +188,22 @@ h1 {
 @keyframes hover-misc {
     100% {
         background-color: #ff8080;
+    }
+}
+
+@media only screen and (max-device-width: 800px) {
+    body {
+        justify-items: center;
+        align-items: center;
+    }
+
+    .calculator {
+        width: 90vw;
+        height: 90vh;
+        margin-top: 0;
+    }
+
+    .buttons {
+        --size: 50px;
     }
 }
