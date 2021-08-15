@@ -13,28 +13,26 @@ let secondOperand = [];
 let operator = null;
 let result = null;
 
-numberBtns.forEach(btn => {
-    btn.addEventListener("click", function(e){
-        let num = e.target.textContent;
-        if (isNaN(result)) clear();
-        if (!operator) { 
-            if (firstOperand.length >= maxDigits) return;
-            if (num === "0" && firstOperand[0] === "0" && !firstOperand.includes(".")) return;
-            if (firstOperand[0] === "0" && firstOperand.length === 1) {
-                firstOperand[0] = num 
-            } else { 
-                firstOperand.push(num)
-            };
-            updateInputText(firstOperand)
-        } else {
-            if (secondOperand.length >= maxDigits) return;
-            secondOperand.push(num);
-            updateInputText(secondOperand)
-        }
-    })
-});
+let setNumbers = function(e) {
+    let num = e.target.textContent;
+    if (isNaN(result)) clear();
+    if (!operator) { 
+        if (firstOperand.length >= maxDigits) return;
+        if (num === "0" && firstOperand[0] === "0" && !firstOperand.includes(".")) return;
+        if (firstOperand[0] === "0" && firstOperand.length === 1) {
+            firstOperand[0] = num 
+        } else { 
+            firstOperand.push(num)
+        };
+        updateInputText(firstOperand)
+    } else {
+        if (secondOperand.length >= maxDigits) return;
+        secondOperand.push(num);
+        updateInputText(secondOperand)
+    }
+}
 
-dotBtn.addEventListener("click", function(e){
+let setDecimal = function(e) {
     if (isNaN(result)) clear();
     if (!operator) {
         if (firstOperand.length >= maxDigits) return;
@@ -51,41 +49,49 @@ dotBtn.addEventListener("click", function(e){
             updateInputText(secondOperand);
         }
     }
-})
+}
 
-operationBtns.forEach(btn => {
-    btn.addEventListener("click", function(e){
-        let symbol = e.target.textContent;
-        if (isNaN(result)) clear();
-        if (firstOperand[firstOperand.length-1] === "." || secondOperand[secondOperand.length-1] === ".") return;
-        if (firstOperand.length === 0) {
-            if (symbol === "-") firstOperand.push(symbol);
-            updateInputText(firstOperand);
-            return;
+let setOperator = function(e) {
+    let symbol = e.target.textContent;
+    if (isNaN(result)) clear();
+    if (!parseInt(firstOperand[firstOperand.length-1]) || !parseInt(secondOperand[secondOperand.length-1])) return;
+    if (firstOperand.length === 0) { // allow negative firstOperand
+        if (symbol === "-") firstOperand.push(symbol);
+        updateInputText(firstOperand);
+        return;
+    }
+    if (operator && secondOperand.length === 0) {
+        if (symbol !== "=" && operator !== symbol) { // change operator
+            operator = symbol;
+            evalArr[1] = symbol;
         }
-        if (operator && secondOperand.length === 0) {
-            if (symbol === "-") secondOperand.push(symbol);
+        if (operator === "-" && symbol === operator) { // allow negative secondOperand
+            secondOperand.push(symbol);
             updateInputText(secondOperand);
             return;
         }
-        if (result) { // set result as operand
-            evalArr = [];
-            operator = symbol;
-            updateStoredText();
-            storeInput();
-            result = null;
-            return;
-        }
-        if (!operator) { 
-            operator = symbol;
-            updateStoredText();
-            storeInput();
-        } else { // evaluate
-            evalArr.push(secondOperand.join(''));
-            operate(parseFloat(firstOperand.join('')), parseFloat(secondOperand.join('')));
-        }
-    })
-});
+    }
+    if (result) { // set result as operand
+        evalArr = [];
+        operator = symbol;
+        updateStoredText();
+        storeInput();
+        result = null;
+        return;
+    }
+    if (!operator) { // store firstOperand and operator
+        operator = symbol;
+        updateStoredText();
+        storeInput();
+    } else if (secondOperand.length > 0) { // evaluate
+        evalArr.push(secondOperand.join(''));
+        operate(parseFloat(firstOperand.join('')), parseFloat(secondOperand.join('')));
+    }
+}
+
+numberBtns.forEach(btn => {btn.addEventListener("click", setNumbers)});
+dotBtn.addEventListener("click", setDecimal);
+operationBtns.forEach(btn => {btn.addEventListener("click", setOperator)});
 
 delBtn.addEventListener("click", del);
 clrBtn.addEventListener("click", clear);
