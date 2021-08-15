@@ -5,18 +5,20 @@ const delBtn = document.querySelector("#delete");
 const clrBtn = document.querySelector("#clear");
 const storedStr = document.querySelector(".stored");
 const inputStr = document.querySelector(".input");
+const maxDigits = 16;
 let historyArr = [];
 let evalArr = [];
 let firstOperand = [];
 let secondOperand = [];
-let operator = "";
+let operator = null;
 let result = null;
 
 numberBtns.forEach(btn => {
     btn.addEventListener("click", function(e){
         let num = e.target.textContent;
         if (isNaN(result)) clear();
-        if (operator === "") { 
+        if (!operator) { 
+            if (firstOperand.length >= maxDigits) return;
             if (num === "0" && firstOperand[0] === "0" && !firstOperand.includes(".")) return;
             if (firstOperand[0] === "0" && firstOperand.length === 1) {
                 firstOperand[0] = num 
@@ -25,6 +27,7 @@ numberBtns.forEach(btn => {
             };
             updateInputText(firstOperand)
         } else {
+            if (secondOperand.length >= maxDigits) return;
             secondOperand.push(num);
             updateInputText(secondOperand)
         }
@@ -33,17 +36,19 @@ numberBtns.forEach(btn => {
 
 dotBtn.addEventListener("click", function(e){
     if (isNaN(result)) clear();
-    if (operator === "") {
+    if (!operator) {
+        if (firstOperand.length >= maxDigits) return;
         if (!firstOperand.includes(".")) {
             if (firstOperand.length === 0) firstOperand.push("0");
-            firstOperand.push(e.target.textContent)
-            updateInputText(firstOperand)
+            firstOperand.push(e.target.textContent);
+            updateInputText(firstOperand);
         } 
     } else {
+        if (secondOperand.length >= maxDigits) return;
         if (!secondOperand.includes(".")) {
             if (secondOperand.length === 0) secondOperand.push("0");
-            secondOperand.push(e.target.textContent)
-            updateInputText(secondOperand)
+            secondOperand.push(e.target.textContent);
+            updateInputText(secondOperand);
         }
     }
 })
@@ -52,8 +57,17 @@ operationBtns.forEach(btn => {
     btn.addEventListener("click", function(e){
         let symbol = e.target.textContent;
         if (isNaN(result)) clear();
-        if (firstOperand.length === 0) return;
-        if (symbol === "=" && secondOperand.length === 0) return;
+        if (firstOperand[firstOperand.length-1] === "." || secondOperand[secondOperand.length-1] === ".") return;
+        if (firstOperand.length === 0) {
+            if (symbol === "-") firstOperand.push(symbol);
+            updateInputText(firstOperand);
+            return;
+        }
+        if (operator && secondOperand.length === 0) {
+            if (symbol === "-") secondOperand.push(symbol);
+            updateInputText(secondOperand);
+            return;
+        }
         if (result) { // set result as operand
             evalArr = [];
             operator = symbol;
@@ -62,7 +76,7 @@ operationBtns.forEach(btn => {
             result = null;
             return;
         }
-        if (operator === "") { 
+        if (!operator) { 
             operator = symbol;
             updateStoredText();
             storeInput();
@@ -89,13 +103,13 @@ function showResult () {
     inputStr.textContent = result;
     firstOperand = [];
     secondOperand = [];
-    operator = '';
+    operator = null;
     firstOperand.push(...result.split(''));
 }
 
 function storeInput() {
     evalArr.push(firstOperand.join(''));
-    if (operator !== "") evalArr.push(operator);
+    if (operator) evalArr.push(operator);
     inputStr.textContent = "";
     storedStr.textContent = evalArr.join(" ")
 }
@@ -118,7 +132,7 @@ const divide = function(num1, num2) {
 };
 
 function operate(num1, num2) {
-    switch (operator !== "") {
+    switch (operator !== null) {
         case (operator === "÷"):
             result = divide(num1,num2);
             break;
@@ -138,7 +152,7 @@ function operate(num1, num2) {
 }
 
 function del() {
-    if (operator === "") { 
+    if (!operator) { 
         firstOperand.pop();
         updateInputText(firstOperand)
     } else {
@@ -153,7 +167,7 @@ function clear() {
     evalArr = [];
     firstOperand = [];
     secondOperand = [];
-    operator = "";
+    operator = null;
     inputStr.textContent = "";
     storedStr.textContent = ""
     result = null;
