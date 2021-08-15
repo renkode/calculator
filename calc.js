@@ -8,7 +8,7 @@ const clrBtn = document.querySelector("#clear");
 const extraBtn = document.querySelector("#click-me");
 const storedStr = document.querySelector(".stored");
 const inputStr = document.querySelector(".input");
-let maxDigits = 0;
+let maxDigits = 16;
 let evalArr = [];
 let firstOperand = [];
 let secondOperand = [];
@@ -17,11 +17,9 @@ let result = null;
 let sound = new Audio("https://cdn.discordapp.com/attachments/577559988554301451/876392235099365386/yatta.mp3");
 let divideByZero = ["ARGH","STOP THAT","IT HURTS", "YOU FOOL"]
 
-if( /Android|webOS|iPhone|iPad|Mac|Macintosh|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+/*if( /Android|webOS|iPhone|iPad|Mac|Macintosh|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
     maxDigits = 8;
-} else {
-    maxDigits = 16;
-}
+}*/
 
 let setNumbers = function(e) {
     let num = e.target.textContent;
