@@ -218,6 +218,7 @@ h1 {
         min-height: 20%;
         font-size: 90%;
         text-align: right;
+        line-height: 90%;
     }
     
     .input {
