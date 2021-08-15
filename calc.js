@@ -1,3 +1,5 @@
+const calc = document.querySelector(".calculator");
+const display = document.querySelector(".display");
 const numberBtns = Array.from(document.querySelectorAll(".numBtn"));
 const dotBtn = document.querySelector(".dotBtn");
 const operationBtns = Array.from(document.querySelectorAll(".opBtn"));
@@ -13,6 +15,7 @@ let secondOperand = [];
 let operator = null;
 let result = null;
 let sound = new Audio("https://cdn.discordapp.com/attachments/577559988554301451/876392235099365386/yatta.mp3");
+let divideByZero = ["ARGH","STOP THAT","IT HURTS", "YOU FOOL"]
 
 let setNumbers = function(e) {
     let num = e.target.textContent;
@@ -65,20 +68,6 @@ let setOperator = function(e) {
             return;
         } else { return; }
     }
-    if (operator && secondOperand.length === 0) {
-        if (symbol !== "=") { // change operator
-            operator = symbol;
-            evalArr[1] = symbol;
-            updateStoredText();
-        } else {
-            return;
-        }
-        if (operator === "-" && symbol === operator) { // allow negative secondOperand
-            secondOperand.push(symbol);
-            updateInputText(secondOperand);
-            return;
-        }
-    }
     if (result) { // set result as operand
         if (symbol === "=") return;
         evalArr = [];
@@ -87,6 +76,19 @@ let setOperator = function(e) {
         storeInput();
         result = null;
         return;
+    }
+    if (operator) {
+        if (symbol === "-" && secondOperand.length === 0) { // allow negative secondOperand
+            secondOperand.push(symbol);
+            updateInputText(secondOperand);
+            return;
+        }
+        if (symbol !== "=") { // change operator
+            operator = symbol;
+            evalArr[1] = symbol;
+            updateStoredText();
+            return;
+        }
     }
     if (!operator) { // store firstOperand and operator
         if (symbol === "=") return;
@@ -158,7 +160,11 @@ const multiply = function(num1, num2) {
 };
 
 const divide = function(num1, num2) {
-    if (num2 === 0 ) return "Don't do that!"
+    if (num2 === 0 ) {
+        calc.classList.add("shake");
+        display.classList.add("glowRed");
+        return divideByZero[Math.floor(Math.random()*divideByZero.length)];
+    }
     return num1 / num2;
 };
 
@@ -191,5 +197,6 @@ dotBtn.addEventListener("click", setDecimal);
 operationBtns.forEach(btn => {btn.addEventListener("click", setOperator)});
 delBtn.addEventListener("click", del);
 clrBtn.addEventListener("click", clear);
-extraBtn.addEventListener("click", event => sound.play());
-  
+extraBtn.addEventListener("click", () => {sound.play(); calc.classList.add("shake")});
+calc.addEventListener('animationend', () => calc.classList.remove("shake"));
+display.addEventListener('animationend', () => display.classList.remove("glowRed"));
