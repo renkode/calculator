@@ -219,12 +219,13 @@ h1 {
         width: 100%;
         min-height: 20%;
         font-size: 90%;
+        font-size: 2vh;
     }
     
     .input {
         width: 100%;
         margin-top: 6px;
-        font-size: 190%;
+        font-size: 4vh;
     }
     
 }
