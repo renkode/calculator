@@ -1,232 +1,262 @@
-html, body {
-    width: 100%;
-    height: 100%;
-    font-family: sans-serif;
-    margin: 0;
+html,
+body {
+  width: 100%;
+  height: 100%;
+  font-family: sans-serif;
+  margin: 0;
 }
 
 body {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+p {
+  margin: 16px auto;
 }
 
 .calculator {
-    box-sizing: border-box;
-    position: absolute;
-    width: 400px;
-    height: 550px;
-    margin-top: 5%;
-    background-color: rgb(198, 203, 209);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border-radius: 30px;
-    border: 2px solid rgba(0, 0, 0, 0.295);
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.788);
+  box-sizing: border-box;
+  margin: 0 auto;
+  width: 400px;
+  height: 550px;
+  background-color: rgb(198, 203, 209);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 30px;
+  border: 2px solid rgba(0, 0, 0, 0.295);
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.788);
 }
 
 .shake {
-    animation: shake 0.5s;
-    animation-iteration-count: 1; 
+  animation: shake 0.5s;
+  animation-iteration-count: 1;
 }
 
-
 @keyframes shake {
-    0% { transform: translate(1px, 1px) rotate(0deg); }
-    10% { transform: translate(-1px, -2px) rotate(-1deg); }
-    20% { transform: translate(-3px, 0px) rotate(1deg); }
-    30% { transform: translate(3px, 2px) rotate(0deg); }
-    40% { transform: translate(1px, -1px) rotate(1deg); }
-    50% { transform: translate(-1px, 2px) rotate(-1deg); }
-    60% { transform: translate(-3px, 1px) rotate(0deg); }
-    70% { transform: translate(3px, 1px) rotate(-1deg); }
-    80% { transform: translate(-1px, -1px) rotate(1deg); }
-    90% { transform: translate(1px, 2px) rotate(0deg); }
-    100% { transform: translate(1px, -2px) rotate(-1deg); }
+  0% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+  10% {
+    transform: translate(-1px, -2px) rotate(-1deg);
+  }
+  20% {
+    transform: translate(-3px, 0px) rotate(1deg);
+  }
+  30% {
+    transform: translate(3px, 2px) rotate(0deg);
+  }
+  40% {
+    transform: translate(1px, -1px) rotate(1deg);
+  }
+  50% {
+    transform: translate(-1px, 2px) rotate(-1deg);
+  }
+  60% {
+    transform: translate(-3px, 1px) rotate(0deg);
+  }
+  70% {
+    transform: translate(3px, 1px) rotate(-1deg);
+  }
+  80% {
+    transform: translate(-1px, -1px) rotate(1deg);
+  }
+  90% {
+    transform: translate(1px, 2px) rotate(0deg);
+  }
+  100% {
+    transform: translate(1px, -2px) rotate(-1deg);
+  }
 }
 
 .display-bg {
-    width: 100%;
-    height: 30%;
-    background-color: rgb(44, 46, 51);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 0;
-    border-radius: 25px 25px 0px 0px;
+  width: 100%;
+  height: 30%;
+  background-color: rgb(44, 46, 51);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  border-radius: 25px 25px 0px 0px;
 }
 
 h1 {
-    box-sizing: border-box;
-    letter-spacing: 1px;
-    margin: 8px;
-    color: white
+  box-sizing: border-box;
+  letter-spacing: 1px;
+  margin: 8px;
+  color: white;
+  font-size: min(38px, 8vw);
 }
 
 .display {
-    box-sizing: border-box;
-    margin: 1px 20px 20px 20px;
-    padding: 4px;
-    width: 80%;
-    height: 60%;
-    border: 2px solid rgb(138, 160, 167);
-    background: linear-gradient(rgb(171, 201, 206),rgb(195, 231, 225)) ;
-    display: flex;
-    flex-direction: column;
-    color: rgb(59, 83, 74);
-    box-shadow: 0px 0px 20px rgba(255, 0, 0, 0);
+  box-sizing: border-box;
+  margin: 1px 20px 20px 20px;
+  padding: 4px;
+  width: 80%;
+  height: 60%;
+  border: 2px solid rgb(138, 160, 167);
+  background: linear-gradient(rgb(171, 201, 206), rgb(195, 231, 225));
+  display: flex;
+  flex-direction: column;
+  color: rgb(59, 83, 74);
+  box-shadow: 0px 0px 20px rgba(255, 0, 0, 0);
 }
 
 .glowRed {
-    animation: glow 2s;
-    animation-iteration-count: 1; 
+  animation: glow 2s;
+  animation-iteration-count: 1;
 }
 
 @keyframes glow {
-    0% {
-        background: red;
-        border: 2px solid red;
-        box-shadow:  0px 0px 10px rgba(255, 0, 0, 0.788);
-    }
+  0% {
+    background: red;
+    border: 2px solid red;
+    box-shadow: 0px 0px 10px rgba(255, 0, 0, 0.788);
+  }
 }
 
 .stored {
-    width: 100;
-    min-height: 20%;
-    font-size: 16px;
-    text-align: right;
-    line-height: 80%;
+  width: 100;
+  min-height: 20%;
+  font-size: 16px;
+  text-align: right;
+  line-height: 80%;
 }
 
 .input {
-    width: 100;
-    margin-top: 4px;
-    font-size: 30px;
-    text-align: right;
-    line-height: 80%;
-    overflow-wrap: break-word;
+  width: 100;
+  margin-top: 4px;
+  font-size: 30px;
+  text-align: right;
+  line-height: 80%;
+  overflow-wrap: break-word;
 }
 
 .buttons {
-    --size: 65px;
-    width: 80%;
-    height: 70%;
-    margin: 20px;
-    display: grid;
-    grid-template-columns: repeat(4,var(--size));
-    grid-template-areas: "a a a a"
-                         "a a a a"
-                         "a a a a"
-                         "a a a a"
-                         "a a b b";
-    justify-content: center;
-    align-items: center;
-    column-gap: 8px;
+  --size: 65px;
+  width: 80%;
+  height: 70%;
+  margin: 20px;
+  display: grid;
+  grid-template-columns: repeat(4, var(--size));
+  grid-template-areas:
+    "a a a a"
+    "a a a a"
+    "a a a a"
+    "a a a a"
+    "a a b b";
+  justify-content: center;
+  align-items: center;
+  column-gap: 8px;
 }
 
-.numBtn, .dotBtn, .opBtn, .miscBtn {
-    width: var(--size);
-    height: var(--size);
-    font-size: 28px;
-    border: 1px solid rgba(48, 49, 56, 0.685);
-    border-radius: 8px;
-    text-align: center;
-    vertical-align: center;
+.numBtn,
+.dotBtn,
+.opBtn,
+.miscBtn {
+  width: var(--size);
+  height: var(--size);
+  font-size: min(28px, 8vw);
+  border: 1px solid rgba(48, 49, 56, 0.685);
+  border-radius: 8px;
+  text-align: center;
+  vertical-align: center;
 }
 
 .opBtn {
-    background-color: rgb(119, 126, 138);
+  background-color: rgb(119, 126, 138);
 }
 
 #equals {
-    width: calc((var(--size) * 2) + 8px);
+  width: calc((var(--size) * 2) + 8px);
 }
 
-#delete, #clear {
-    background-color: rgb(247, 92, 100);
+#delete,
+#clear {
+  background-color: rgb(247, 92, 100);
 }
 
 .numBtn:hover {
-    animation-name: hover-num;
-    animation-duration: 150ms;
-    animation-fill-mode: forwards;
+  animation-name: hover-num;
+  animation-duration: 150ms;
+  animation-fill-mode: forwards;
 }
 
 .dotBtn:hover {
-    animation-name: hover-num;
-    animation-duration: 150ms;
-    animation-fill-mode: forwards;
+  animation-name: hover-num;
+  animation-duration: 150ms;
+  animation-fill-mode: forwards;
 }
 
 #click-me:hover {
-    animation-name: hover-num;
-    animation-duration: 150ms;
-    animation-fill-mode: forwards;
+  animation-name: hover-num;
+  animation-duration: 150ms;
+  animation-fill-mode: forwards;
 }
 
 .miscBtn:hover {
-    animation-name: hover-misc;
-    animation-duration: 150ms;
-    animation-fill-mode: forwards;
+  animation-name: hover-misc;
+  animation-duration: 150ms;
+  animation-fill-mode: forwards;
 }
 
 .opBtn:hover {
-    animation-name: hover-op;
-    animation-duration: 150ms;
-    animation-fill-mode: forwards;
+  animation-name: hover-op;
+  animation-duration: 150ms;
+  animation-fill-mode: forwards;
 }
-  
+
 @keyframes hover-num {
-    100% {
-        background-color: #ffffff;
-    }
+  100% {
+    background-color: #ffffff;
+  }
 }
 
 @keyframes hover-op {
-    100% {
-        background-color: #97a2ad;
-    }
+  100% {
+    background-color: #97a2ad;
+  }
 }
 
 @keyframes hover-misc {
-    100% {
-        background-color: #ff8080;
-    }
+  100% {
+    background-color: #ff8080;
+  }
 }
 
-@media only screen and (max-device-width: 800px) {
-    body {
-        justify-items: center;
-        align-items: center;
-    }
+@media only screen and (max-device-width: 450px) {
+  body {
+    justify-items: center;
+    align-items: center;
+  }
 
-    .calculator {
-        width: 90vw;
-        height: 85vh;
-        margin-top: 0;
-    }
+  .calculator {
+    width: 90vw;
+    height: 85vh;
+  }
 
-    .display {
-        height: 50%;
-        margin: 0px 20px 20px 20px;
-    }
+  .display {
+    height: 50%;
+    margin: 0px 20px 20px 20px;
+  }
 
-    .buttons {
-        --size: 15vw;
-    }
+  .buttons {
+    --size: min(15vw, 10vh);
+  }
 
-    .stored {
-        width: 100%;
-        min-height: 20%;
-        font-size: 90%;
-        font-size: 2vh;
-    }
-    
-    .input {
-        width: 100%;
-        margin-top: 6px;
-        font-size: 4vh;
-    }
-    
+  .stored {
+    width: 100%;
+    min-height: 20%;
+    font-size: 90%;
+    font-size: 2vh;
+  }
+
+  .input {
+    width: 100%;
+    margin-top: 6px;
+    font-size: 4vh;
+  }
 }
